@@ -16,7 +16,7 @@ const isAdmin=(req,res,nxt)=>{
 const isAuthenticatedUser =async (req, res, nxt) => {
         try {
             const token = req.headers.token ;
-            if (!token)  return nxt(new ErrorHander("Please Sign In ", 402));
+            if (!token || token == "null")  return nxt(new ErrorHander("Please Sign In ", 402));
             const decodedData = jwt.verify(token, process.env.JWT_SEC);
             req.user = await User.findOne({_id:decodedData.id}).exec();
             if(!req.user) return nxt(new ErrorHander("User Not Found",401))
