@@ -52,7 +52,6 @@ const getProductsToHome = asyncErrorPattern(async (req, res) => {
 });
 const getProductsByFilter = asyncErrorPattern(async (req, res, nxt) => {
   const { category, f, page } = req.query;
-  console.log(f);
   var products;
   if (f === "bestsaler") {
     if (category === "all") {

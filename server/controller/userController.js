@@ -31,7 +31,6 @@ const login = asyncErrorPattern(async (req, res, nxt) => {
   const validPassword = await bcrypt.compare(req.body.password, user.password);
   if (!validPassword)
     return nxt(new ErrorHander("Error in Email or Password", 400));
-
   if (!user.verified) {
     let token = await Token.findOne({ userId: user._id });
     if (!token) {

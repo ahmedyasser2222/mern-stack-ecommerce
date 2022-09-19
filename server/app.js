@@ -9,6 +9,7 @@ const cookieSaessaion=require("cookie-session")
 require("./utile/passport")
 const passport=require("passport")
 const passportRoutr=require("./utile/google_auth")
+const path=require("path")
 
 mongoose.connect(process.env.MONGO_URL)
 .then(() => console.log("DB Connection Successfull!"))
@@ -27,7 +28,6 @@ app.use(session({
 app.use(passport.initialize())
 app.use(passport.session())
 
-
 app.use(cors({
   origin:"http://localhost:3000",
   methods:"GET,POST,PUT,DELETE",
@@ -42,7 +42,10 @@ app.use("/auth",passportRoutr)
 
 require("./routes/index")(app)
 
-//app.use(express.static("../client/build"))
+app.use(express.static("../client/build"))
+app.use("/*",(req,res)=>{
+  res.sendFile(path.join(__dirname , "/client/build/index.html"))
+})
 // handel error
 process.on("uncaughtException" , (ex)=>{
  console.log("uncaughtException")
