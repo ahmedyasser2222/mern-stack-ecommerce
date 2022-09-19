@@ -43,8 +43,8 @@ app.use("/auth",passportRoutr)
 require("./routes/index")(app)
 
 app.use(express.static("../client/build"))
-app.use("/*",(req,res)=>{
-  res.sendFile(path.join(__dirname , "/client/build/index.html"))
+app.use("*",(req,res)=>{
+  res.sendFile("/client/build/index.html")
 })
 // handel error
 process.on("uncaughtException" , (ex)=>{
